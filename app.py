@@ -1,8 +1,16 @@
 import streamlit as st
+from Src.Config.Settings import settings
 from Src.Application.rag_service import RAGService
 
 st.set_page_config(page_title="Engineering Knowledge Base", page_icon="🤖")
 st.title("🤖 Engineering Knowledge Assistant")
+
+if not settings.llm_api_key:
+    st.error(
+        "⚠️ **Groq API Key missing!**\n\n"
+        "Please add `llm_api_key` to your `.env` locally or in **Streamlit Cloud Settings → Secrets**."
+    )
+    st.stop()
 
 
 @st.cache_resource
