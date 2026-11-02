@@ -75,20 +75,6 @@ st.selectbox(
     label_visibility="collapsed",
 )
 
-# Quick clickable shortcuts
-col1, col2, col3 = st.columns(3)
-if col1.button("⚡ Kafka Architecture", use_container_width=True):
-    st.session_state.user_question = sample_questions[0]
-    st.rerun()
-
-if col2.button("🔐 Orders API Auth", use_container_width=True):
-    st.session_state.user_question = sample_questions[1]
-    st.rerun()
-
-if col3.button("🚨 Payment Rollback", use_container_width=True):
-    st.session_state.user_question = sample_questions[2]
-    st.rerun()
-
 question = st.text_input(
     label="What is your question?",
     key="user_question",
