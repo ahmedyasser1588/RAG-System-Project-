@@ -1,0 +1,13 @@
+pypdf
+langchain-groq
+langchain-community
+langchain-core
+langchain-huggingface
+langchain-chroma
+langchain-text-splitters
+langsmith
+pydantic-settings
+python-dotenv
+sentence-transformers
+streamlit
+chromadb
