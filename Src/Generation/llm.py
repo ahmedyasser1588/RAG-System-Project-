@@ -1,8 +1,9 @@
 from langchain_groq import ChatGroq
 from Src.Config.Settings import settings
 
-def get_llm():
+
+def get_llm(model_name: str | None = None):
     return ChatGroq(
         api_key=settings.llm_api_key,
-        model=settings.llm_model_name
+        model=model_name or settings.llm_model_name,
     )

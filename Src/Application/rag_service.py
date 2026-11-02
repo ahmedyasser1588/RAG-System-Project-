@@ -26,9 +26,9 @@ def get_retriever(retriever_type: str = "similarity"):
 
 
 class RAGService:
-    def __init__(self):
+    def __init__(self, model_name: str | None = None):
         self.prompt = get_rag_prompt()
-        self.llm = get_llm()
+        self.llm = get_llm(model_name=model_name)
 
     def get_retrieved(self, question: str, retriever_type: str) -> list:
         retriever = get_retriever(retriever_type=retriever_type)

@@ -17,7 +17,7 @@ except Exception:
 
 class Settings(BaseSettings):
     llm_api_key: str = ""
-    llm_model_name: str = "llama-3.3-70b-versatile"
+    llm_model_name: str = "openai/gpt-oss-20b"
 
     LANGSMITH_TRACING: str = ""
     LANGSMITH_ENDPOINT: str = ""

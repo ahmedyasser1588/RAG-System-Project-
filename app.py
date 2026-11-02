@@ -12,19 +12,36 @@ if not settings.llm_api_key:
     )
     st.stop()
 
+# Supported models on your Groq key
+available_models = [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-120b",
+    "qwen/qwen3.8-27b",
+    "allam-2-7b",
+]
 
-@st.cache_resource
-def get_rag() -> RAGService:
-    return RAGService()
+default_index = 0
+if settings.llm_model_name in available_models:
+    default_index = available_models.index(settings.llm_model_name)
 
+selected_model = st.sidebar.selectbox(
+    label="LLM Model",
+    options=available_models,
+    index=default_index,
+)
 
-rag = get_rag()
-
-st.sidebar.markdown(f"**Model:** `{settings.llm_model_name}`")
 retriever_type = st.sidebar.radio(
     label="Pick Retriever Type",
     options=["similarity", "hybrid", "mmr"],
 )
+
+
+@st.cache_resource
+def get_rag(model_name: str) -> RAGService:
+    return RAGService(model_name=model_name)
+
+
+rag = get_rag(selected_model)
 
 question = st.text_input("What is your question?")
 
@@ -45,16 +62,4 @@ if st.button("Ask RAG"):
                     st.write(source["content"])
 
         except Exception as e:
-            err_msg = str(e)
-            if "NotFoundError" in type(e).__name__ or "model_not_found" in err_msg or "404" in err_msg:
-                st.error(
-                    f"⚠️ **Model Not Found on Groq!** (`{settings.llm_model_name}`)\n\n"
-                    "The model specified does not exist in Groq.\n"
-                    "Please update `llm_model_name` in **Streamlit Cloud → Settings → Secrets** to:\n"
-                    "```toml\n"
-                    'llm_model_name = "llama-3.3-70b-versatile"\n'
-                    "```\n"
-                    "Other supported models: `llama-3.1-8b-instant`, `mixtral-8x7b-32768`."
-                )
-            else:
-                st.error(f"⚠️ Error: {err_msg}")
+            st.error(f"⚠️ Error: {e}")
