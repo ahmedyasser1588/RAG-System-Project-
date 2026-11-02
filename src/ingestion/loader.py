@@ -3,7 +3,7 @@ from langchain_community.document_loaders import (
     TextLoader,
     PyPDFLoader,
 )
-from Src.Config.Settings import settings
+from src.config.settings import settings
 
 
 def load_documents(path: str | None = None) -> list:

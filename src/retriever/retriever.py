@@ -7,7 +7,6 @@ except ImportError:
     try:
         from langchain.retrievers.ensemble import EnsembleRetriever
     except ImportError:
-        # Fallback simple ensemble implementation if package is missing
         from langchain_core.retrievers import BaseRetriever
         from langchain_core.callbacks import CallbackManagerForRetrieverRun
         from langchain_core.documents import Document
@@ -35,10 +34,10 @@ except ImportError:
                         continue
                 return combined
 
-from Src.Config.Settings import settings
-from Src.Retriver.Embedding import get_embedding
-from Src.Ingestion.Loader import load_documents
-from Src.Ingestion.Chunker import chunk_documents
+from src.config.settings import settings
+from src.retriever.embedding import get_embedding
+from src.ingestion.loader import load_documents
+from src.ingestion.chunker import chunk_documents
 
 
 def get_vector_store() -> Chroma:
@@ -83,7 +82,6 @@ def get_hybrid_retriever(alpha: float = 0.5):
             weights=[1 - alpha, alpha],
         )
     except Exception:
-        # If keyword retriever fails (e.g. rank_bm25), fallback to similarity
         return get_similarity_retriever()
 
 

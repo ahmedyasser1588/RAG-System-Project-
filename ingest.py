@@ -1,14 +1,14 @@
 """
-Ingestion Script — يُشغَّل مرة واحدة لبناء الـ Vector DB
+Ingestion Script — builds and populates the ChromaDB vector store.
 
-الاستخدام:
+Usage:
     python ingest.py
 """
 
-from Src.Ingestion.Loader import load_documents
-from Src.Ingestion.Chunker import chunk_documents
-from Src.Retriver.Vector_Store import create_vector_store
-from Src.Config.Settings import settings
+from src.ingestion.loader import load_documents
+from src.ingestion.chunker import chunk_documents
+from src.retriever.vector_store import create_vector_store
+from src.config.settings import settings
 
 
 def run_ingestion():

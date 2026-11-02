@@ -1,6 +1,6 @@
 # pyrefly: ignore [missing-import]
 from langchain_huggingface import HuggingFaceEmbeddings
-from Src.Config.Settings import settings
+from src.config.settings import settings
 
 
 def get_embedding() -> HuggingFaceEmbeddings:

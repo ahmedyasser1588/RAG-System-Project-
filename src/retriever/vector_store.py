@@ -1,7 +1,7 @@
 # pyrefly: ignore [missing-import]
 from langchain_chroma import Chroma
-from Src.Retriver.Embedding import get_embedding
-from Src.Config.Settings import settings
+from src.retriever.embedding import get_embedding
+from src.config.settings import settings
 
 
 def create_vector_store(chunks: list) -> Chroma:

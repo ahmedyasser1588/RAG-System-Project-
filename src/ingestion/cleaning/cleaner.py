@@ -9,7 +9,6 @@ def remove_noise(text: str, noise_patterns: list[str]) -> str:
     for line in lines:
         stripped_line = line.strip()
 
-        # Preserve empty lines
         if not stripped_line:
             cleaned_lines.append("")
             continue
@@ -40,15 +39,7 @@ def remove_noise_keywords(text: str, keywords: list[str]) -> str:
 
 
 def remove_consecutive_duplicates(text: str) -> str:
-    """Remove consecutive identical lines.
-
-    Example:
-        Authentication
-        Authentication
-        Authentication
-        becomes:
-        Authentication
-    """
+    """Remove consecutive identical lines."""
     lines = text.splitlines()
     cleaned_lines = []
     previous_line = None
@@ -56,7 +47,6 @@ def remove_consecutive_duplicates(text: str) -> str:
     for line in lines:
         normalized = line.strip()
 
-        # Keep empty lines
         if not normalized:
             cleaned_lines.append("")
             continue
@@ -71,9 +61,7 @@ def remove_consecutive_duplicates(text: str) -> str:
 
 
 def remove_duplicate_lines(text: str) -> str:
-    """Remove duplicate lines appearing anywhere in the document.
-    This is more aggressive than remove_consecutive_duplicates.
-    """
+    """Remove duplicate lines appearing anywhere in the document."""
     lines = text.splitlines()
     seen = set()
     cleaned_lines = []
@@ -81,7 +69,6 @@ def remove_duplicate_lines(text: str) -> str:
     for line in lines:
         normalized = line.strip()
 
-        # Preserve empty lines
         if not normalized:
             cleaned_lines.append(line)
             continue

@@ -57,7 +57,6 @@ def extract_sections(text: str) -> list[DocumentSection]:
             current_title = title
             current_content = []
 
-            # Remove deeper levels from stack
             for existing_level in list(heading_stack.keys()):
                 if existing_level >= level:
                     del heading_stack[existing_level]

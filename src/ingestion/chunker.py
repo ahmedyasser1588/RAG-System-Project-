@@ -1,5 +1,5 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from Src.Config.Settings import settings
+from src.config.settings import settings
 
 
 def chunk_documents(docs: list) -> list:

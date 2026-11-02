@@ -1,4 +1,4 @@
-from Src.Ingestion.Cleaning.Cleaner import (
+from src.ingestion.cleaning.cleaner import (
     remove_consecutive_duplicates,
     remove_duplicate_lines,
     remove_empty_lines,
@@ -6,15 +6,13 @@ from Src.Ingestion.Cleaning.Cleaner import (
     remove_noise,
     remove_repeated_footer,
 )
-
-from Src.Ingestion.Cleaning.Normalizer import (
+from src.ingestion.cleaning.normalizer import (
     normalize_whitespace,
     normalize_lines,
     fix_ocr_errors,
     normalize_punctuations,
 )
-
-from Src.Ingestion.Cleaning.Rules import (
+from src.ingestion.cleaning.rules import (
     BOILERPLATE_PATTERNS,
     NOISE_KEYWORDS,
     OCR_REPLACEMENTS,
@@ -23,18 +21,7 @@ from Src.Ingestion.Cleaning.Rules import (
 
 
 def clean_text(text: str) -> str:
-    """Main document cleaning pipeline.
-
-    Raw text
-    ↓ Remove Noise
-    ↓ Remove Boilerplate
-    ↓ Fix OCR Errors
-    ↓ Remove Duplicate lines
-    ↓ Normalize Punctuations
-    ↓ Normalize Lines
-    ↓ Normalize Whitespace
-    ↓ Final clean text
-    """
+    """Main document cleaning pipeline."""
     if not text:
         return ""
 

@@ -1,7 +1,6 @@
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-from Src.Ingestion.chunking.Structure import extract_sections
+from src.ingestion.chunking.structure import extract_sections
 
 
 class StructureAwareChunker:
@@ -39,12 +38,10 @@ class StructureAwareChunker:
                 metadata=metadata,
             )
 
-            # Section fits in one chunk
             if len(section.content) <= self.chunk_size:
                 chunks.append(section_doc)
                 continue
 
-            # Section is too large — split further
             section_chunks = self.splitter.split_documents([section_doc])
             chunks.extend(section_chunks)
 

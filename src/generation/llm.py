@@ -1,5 +1,5 @@
 from langchain_groq import ChatGroq
-from Src.Config.Settings import settings
+from src.config.settings import settings
 
 
 def get_llm(model_name: str | None = None):

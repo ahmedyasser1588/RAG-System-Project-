@@ -1,8 +1,8 @@
 import streamlit as st
-from Src.Config.Settings import settings
-from Src.Application.rag_service import RAGService
+from src.config.settings import settings
+from src.application.rag_service import RAGService
 
-st.set_page_config(page_title="Engineering Knowledge Base", page_icon="🤖")
+st.set_page_config(page_title="EngineIQ — Engineering Knowledge Base", page_icon="🤖")
 st.title("🤖 Engineering Knowledge Assistant")
 st.caption("Ask questions about engineering architecture, runbooks, APIs, and incidents.")
 
