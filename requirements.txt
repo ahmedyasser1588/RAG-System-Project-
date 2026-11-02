@@ -1,7 +1,7 @@
-pypdf
-langchain-groq
+langchain
 langchain-community
 langchain-core
+langchain-groq
 langchain-huggingface
 langchain-chroma
 langchain-text-splitters
@@ -11,3 +11,5 @@ python-dotenv
 sentence-transformers
 streamlit
 chromadb
+pypdf
+rank_bm25

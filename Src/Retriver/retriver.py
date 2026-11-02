@@ -1,6 +1,39 @@
 from langchain_chroma import Chroma
 from langchain_community.retrievers import BM25Retriever
-from langchain_community.retrievers import EnsembleRetriever
+
+try:
+    from langchain.retrievers import EnsembleRetriever
+except ImportError:
+    try:
+        from langchain.retrievers.ensemble import EnsembleRetriever
+    except ImportError:
+        # Fallback simple ensemble implementation if package is missing
+        from langchain_core.retrievers import BaseRetriever
+        from langchain_core.callbacks import CallbackManagerForRetrieverRun
+        from langchain_core.documents import Document
+
+        class EnsembleRetriever(BaseRetriever):  # type: ignore
+            retrievers: list
+            weights: list[float]
+
+            def _get_relevant_documents(
+                self,
+                query: str,
+                *,
+                run_manager: CallbackManagerForRetrieverRun | None = None,
+            ) -> list[Document]:
+                combined = []
+                seen = set()
+                for retriever in self.retrievers:
+                    try:
+                        docs = retriever.invoke(query)
+                        for doc in docs:
+                            if doc.page_content not in seen:
+                                seen.add(doc.page_content)
+                                combined.append(doc)
+                    except Exception:
+                        continue
+                return combined
 
 from Src.Config.Settings import settings
 from Src.Retriver.Embedding import get_embedding
@@ -42,13 +75,16 @@ def get_keyword_retriever():
 
 
 def get_hybrid_retriever(alpha: float = 0.5):
-    keyword_retriever = get_keyword_retriever()
-    similarity_retriever = get_similarity_retriever()
-
-    return EnsembleRetriever(
-        retrievers=[keyword_retriever, similarity_retriever],
-        weights=[1 - alpha, alpha],
-    )
+    try:
+        keyword_retriever = get_keyword_retriever()
+        similarity_retriever = get_similarity_retriever()
+        return EnsembleRetriever(
+            retrievers=[keyword_retriever, similarity_retriever],
+            weights=[1 - alpha, alpha],
+        )
+    except Exception:
+        # If keyword retriever fails (e.g. rank_bm25), fallback to similarity
+        return get_similarity_retriever()
 
 
 def get_retriever(retriever_type: str = "similarity"):
